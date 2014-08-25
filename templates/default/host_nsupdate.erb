@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# This file is managed by Chef.
+# Do NOT modify this file directly.
+#
+
+nsupdate -k <%=node.ddnsupdate.ddnssec.key_file-%> -d <%=node.ddnsupdate.host_config%>
+

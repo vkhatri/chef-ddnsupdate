@@ -1,0 +1,10 @@
+server <%=@server%>
+zone <%=@zone%>.
+update delete <%=@fqdn-%>. A
+update add <%=@fqdn-%>. <%=@ttl-%> A <%=@ip%>
+
+server <%=@server%>
+zone <%=@reverse_zone%>.
+update delete <%=@ptr-%>. PTR
+update add <%=@ptr-%>. <%=@ttl-%> PTR <%=@fqdn-%>.
+
