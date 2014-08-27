@@ -17,3 +17,16 @@
 # limitations under the License.
 #
 
+include_recipe "ddnsupdate::install"
+
+node.ddnsupdate.rr.each do |_resource, _resource_option|
+  ddnsupdate_rr _resource do
+    type    _resource_option[:type]
+    ttl     _resource_option[:ttl]
+    value   _resource_option[:value]
+    zone    _resource_option[:zone]   ||  node.ddnsupdate.zone
+    server  _resource_option[:server] ||  node.ddnsupdate.server
+    ddnssec_key_file  _resource_option[:ddnssec_key_file] || node.ddnsupdate.ddnssec.key_file
+    action  _resource_option[:action] || :create
+  end
+end

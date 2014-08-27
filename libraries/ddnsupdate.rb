@@ -23,6 +23,43 @@ require 'ipaddr'
 # ddnsupdate cookbook /etc/resolv.conf parser helper module
 #
 module DDNSUpdate
+
+  def self.rr2ptr(type, rr)
+    if type.upcase == 'PTR'
+      return "#{rr.split('.').reverse.join('.')}.in-addr.arpa"
+    else
+      return rr
+    end
+  end
+
+  def self.dig(type, resource, server = nil)
+    if server
+      o = { :nameserver => server}
+      case type.upcase
+      when 'A'
+        Resolv::DNS.new(o).getaddresses(resource)
+        # Resolv::DNS.new.getresources(resource, Resolv::DNS::Resource::IN::A).map {|i| i.address.to_s}
+      when 'PTR'
+        Resolv::DNS.new(o).getnames(resource)
+      when 'CNAME'
+        Resolv::DNS.new(o).getresources(resource, Resolv::DNS::Resource::IN::CNAME).map {|i| i.name.to_s}
+      when 'MX'
+        Resolv::DNS.new(o).getresources('bsb.in', Resolv::DNS::Resource::IN::MX).map {|i| i.exchange.to_s}
+      end
+    else
+      case type.upcase
+      when 'A'
+        Resolv.getaddresses(resource)
+      when 'PTR'
+        Resolv.getnames(resource)
+      when 'CNAME'
+        Resolv::DNS.new.getresources(resource, Resolv::DNS::Resource::IN::CNAME).map {|i| i.name.to_s}
+      when 'MX'
+        Resolv::DNS.new.getresources('bsb.in', Resolv::DNS::Resource::IN::MX).map {|i| i.exchange.to_s}
+      end
+    end
+  end
+
   def self.resolv_conf(rc_file = '/etc/resolv.conf')
     rc = {
       :nameservers  => [],
@@ -50,4 +87,5 @@ module DDNSUpdate
       end
     end
   end
+
 end
