@@ -26,6 +26,10 @@ default[:ddnsupdate]  = {
     }
   },
 
-  :rr     => {} # List of RR to Manage via nsupdate
+  :rr     => {
+    :create   => {},
+    :delete   => {},
+    :update   => {}
+  } # List of RR to Manage via nsupdate
 
 }

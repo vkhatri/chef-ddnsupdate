@@ -25,8 +25,10 @@ default_action :create
 
 attribute :type,        :kind_of => String, :regex => /a|ptr|cname|mx/i, :required => true, :default => nil
 attribute :ttl,         :kind_of => [String, Integer], :regex => /.*/, :default => 300
-attribute :value,       :kind_of => String, :regex => /.*/, :required => true, :default => nil
+attribute :value,       :kind_of => Array,  :required => true, :default => []
 attribute :zone,        :kind_of => String, :regex => /.*/, :required => true, :default => nil
 attribute :server,      :kind_of => String, :regex => Resolv::IPv4::Regex, :required => true, :default => nil
-attribute :priority,    :kind_of => String, :regex => /.*/, :required => :type =~ /^mx$/i, :default => nil
+attribute :priority,    :kind_of => [String, Integer], :regex => /.*/, :default => nil
+attribute :purge,       :kind_of => [TrueClass, FalseClass], :default => false
 attribute :ddnssec_key_file,      :kind_of => String, :regex => /.*/, :required => true, :default => nil
+attribute :resolv_conf_file,      :kind_of => String, :regex => /.*/, :default => nil

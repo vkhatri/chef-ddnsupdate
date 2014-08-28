@@ -19,16 +19,13 @@
 
 require 'ipaddr'
 
-#
-# ddnsupdate cookbook /etc/resolv.conf parser helper module
-#
 module DDNSUpdate
 
   def self.rr2ptr(type, rr)
     if type.upcase == 'PTR'
       return "#{rr.split('.').reverse.join('.')}.in-addr.arpa"
     else
-      return rr
+      return rr.upcase
     end
   end
 
@@ -37,10 +34,10 @@ module DDNSUpdate
       o = { :nameserver => server}
       case type.upcase
       when 'A'
-        Resolv::DNS.new(o).getaddresses(resource)
+        Resolv::DNS.new(o).getaddresses(resource).map {|i| i.to_s}
         # Resolv::DNS.new.getresources(resource, Resolv::DNS::Resource::IN::A).map {|i| i.address.to_s}
       when 'PTR'
-        Resolv::DNS.new(o).getnames(resource)
+        Resolv::DNS.new(o).getnames(resource).map {|i| i.to_s}
       when 'CNAME'
         Resolv::DNS.new(o).getresources(resource, Resolv::DNS::Resource::IN::CNAME).map {|i| i.name.to_s}
       when 'MX'
@@ -49,9 +46,9 @@ module DDNSUpdate
     else
       case type.upcase
       when 'A'
-        Resolv.getaddresses(resource)
+        Resolv.getaddresses(resource).map {|i| i.to_s}
       when 'PTR'
-        Resolv.getnames(resource)
+        Resolv.getnames(resource).map {|i| i.to_s}
       when 'CNAME'
         Resolv::DNS.new.getresources(resource, Resolv::DNS::Resource::IN::CNAME).map {|i| i.name.to_s}
       when 'MX'

@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-# require 'resolv'
-
 use_inline_resources
 
 def whyrun_supported?
@@ -27,57 +25,67 @@ end
 
 action :update do
   rr = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)
-  Chef::Log.info("existing RR #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} type #{new_resource.type} value #{rr.inspect}")
-  ruby_block "update_rr_#{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}_#{new_resource.type}_#{new_resource.value}" do
+  Chef::Log.info("EXISTING #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}(#{new_resource.type.upcase})=#{rr.inspect}")
+  raise "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{new_resource.value}" if new_resource.type.upcase == 'MX' and not new_resource.priority
+
+  ruby_block "UPDATE #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}(#{new_resource.type.upcase})=#{new_resource.value}" do
     block do
       IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
         io.puts "server #{new_resource.server}"
         io.puts "zone #{new_resource.zone}"
-        # io.puts "update delete #{new_resource.name} #{new_resource.type}" # Require Testing for multiple value RR
-        io.puts "update add #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} #{new_resource.ttl} #{new_resource.type} #{new_resource.priority} #{new_resource.value}"
+        if new_resource.purge
+          io.puts "update delete #{new_resource.name} #{new_resource.type.upcase}"
+        else
+          io.puts "update delete #{new_resource.name} #{new_resource.type.upcase} #{new_resource.priority} #{new_resource.value}"
+        end
+        io.puts "update add #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} #{new_resource.ttl} #{new_resource.type.upcase} #{new_resource.priority} #{new_resource.value}"
         io.puts 'send'
         io.close_write
         Chef::Log.info io.read
       end
     end
     not_if { rr.include?(new_resource.value) }
-    # Need to verify whether delete a value delete all multiple values
-    # Need more robust check for update RR, forcing by default for now
   end
 end
 
 action :delete do
   rr = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)
-  Chef::Log.info("existing RR #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} type #{new_resource.type} value #{rr.inspect}")
-  ruby_block "delete_rr_#{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}_#{new_resource.type}_#{new_resource.value}" do
-    block do
-      IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
-        io.puts "server #{new_resource.server}"
-        io.puts "zone #{new_resource.zone}"
-        io.puts "update delete #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} #{new_resource.type} #{new_resource.priority} #{new_resource.value}"
-        io.puts 'send'
-        io.close_write
-        Chef::Log.info io.read
+  Chef::Log.info("EXISTING #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}(#{new_resource.type.upcase})=#{rr.inspect}")
+  new_resource.value.each do |rvalue|
+    raise "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' and not new_resource.priority and not (new_resource.purge or rr.count == 1)
+    ruby_block "DELETE #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}(#{new_resource.type.upcase})=#{rvalue}" do
+      block do
+        IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
+          io.puts "server #{new_resource.server}"
+          io.puts "zone #{new_resource.zone}"
+          io.puts "update delete #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} #{new_resource.type.upcase} #{new_resource.priority} #{rvalue}"
+          io.puts 'send'
+          io.close_write
+          Chef::Log.info io.read
+        end
       end
+      only_if { rr.include?(rvalue) }
     end
-    only_if { rr.include?(new_resource.value) }
   end
 end
 
 action :create do
   rr = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)
-  Chef::Log.info("existing RR #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} type #{new_resource.type} value #{rr.inspect}")
-  ruby_block "create_rr_#{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}_#{new_resource.type}_#{new_resource.value}" do
-    block do
-      IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
-        io.puts "server #{new_resource.server}"
-        io.puts "zone #{new_resource.zone}"
-        io.puts "update add #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} #{new_resource.ttl} #{new_resource.type} #{new_resource.priority} #{new_resource.value}"
-        io.puts 'send'
-        io.close_write
-        Chef::Log.info io.read
+  Chef::Log.info("EXISTING #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}(#{new_resource.type.upcase})=#{rr.inspect}")
+  new_resource.value.each do |rvalue|
+    raise "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' and not new_resource.priority
+    ruby_block "CREATE #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)}(#{new_resource.type.upcase})=#{rvalue}" do
+      block do
+        IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
+          io.puts "server #{new_resource.server}"
+          io.puts "zone #{new_resource.zone}"
+          io.puts "update add #{DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)} #{new_resource.ttl} #{new_resource.type.upcase} #{new_resource.priority} #{rvalue}"
+          io.puts 'send'
+          io.close_write
+          Chef::Log.info io.read
+        end
       end
+      not_if { rr.include?(rvalue) }
     end
-    not_if { rr.include?(new_resource.value) }
   end
 end
