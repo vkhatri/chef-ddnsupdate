@@ -59,6 +59,6 @@ cron_d "host_nsupdate" do
   hour        node.ddnsupdate.cron.host.hour
   user        node.ddnsupdate.cron.host.user
   command     node.ddnsupdate.host_nsupdate
-  action      node.ddnsupdate.cron.host.action || :create
+  action      node.ddnsupdate.cron.host.action
 end
 

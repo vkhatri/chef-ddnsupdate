@@ -3,18 +3,21 @@ default[:ddnsupdate]  = {
   :zone             => nil, # forward zone
   :reverse_zone     => nil, # reverse zone, e.g. '127.in-addr.arpa'
   :server           => nil, # default looks up /etc/resolv.conf
-  :host_config      => '/etc/host_nsupdate', # ddns host RR file
-  :rr_config        => '/etc/rr_nsupdate', # ddns RR set file
+  :host_config      => '/etc/nsupdate', # ddns host RR file
+  :rr_config        => '/etc/rrnsupdate', # ddns RR set file
   :host_nsupdate    => '/usr/local/bin/host_nsupdate',
   :rr_nsupdate      => '/usr/local/bin/rr_nsupdate',
-  :ttl              => 60,
+  :ttl              => 300,
 
   :ddnssec   => {
     :databag    => nil, # read ddnssec key file attribute from data bag
+    :manage     => true,
     :key_file   => '/etc/nsupdate.key',
-    :key_name   => 'name',
+    :key_name   => nil,
     :algo       => 'HMAC-MD5',
-    :secret     => nil
+    :secret     => nil,
+    :template_cookbook  => 'ddnsupdate',
+    :template_source    => 'nsupdate.key.erb'
   },
 
   :cron   => {
@@ -22,7 +25,7 @@ default[:ddnsupdate]  = {
       :minute => '*/15',
       :hour   => '*',
       :user   => 'root',
-      :action => nil
+      :action => 'create'
     }
   },
 

@@ -23,7 +23,7 @@ node.ddnsupdate.rr.each do |r_action, r|
   r.each do |_resource, _resource_option|
     ddnsupdate_rr _resource do
       type    _resource_option[:type]
-      ttl     _resource_option[:ttl]
+      ttl     _resource_option[:ttl]    || node.ddnsupdate.ttl
       value   _resource_option[:value]
       zone    _resource_option[:zone]   ||  node.ddnsupdate.zone
       server  _resource_option[:server] ||  node.ddnsupdate.server

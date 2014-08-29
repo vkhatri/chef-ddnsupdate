@@ -26,8 +26,10 @@ end
 
 # ddnssec key file
 template node.ddnsupdate.ddnssec.key_file do
-  mode    0400
-  owner   'root'
-  group   'root'
-  source  'nsupdate.key.erb'
+  mode        0400
+  owner       'root'
+  group       'root'
+  source      node.ddnsupdate.ddnssec.template_source
+  sensitive   true
+  only_if     { node.ddnsupdate.ddnssec.manage }
 end

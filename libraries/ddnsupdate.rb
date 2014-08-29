@@ -25,7 +25,7 @@ module DDNSUpdate
     if type.upcase == 'PTR'
       return "#{rr.split('.').reverse.join('.')}.in-addr.arpa"
     else
-      return rr.upcase
+      return rr
     end
   end
 
