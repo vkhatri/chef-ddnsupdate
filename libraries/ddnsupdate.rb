@@ -83,6 +83,7 @@ module DDNSUpdate
         end
       end
     end
+    rc
   end
 
 end

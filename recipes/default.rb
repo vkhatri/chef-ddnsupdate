@@ -17,3 +17,13 @@
 # limitations under the License.
 #
 
+temp_resolv_conf  = DDNSUpdate.resolv_conf
+
+node.default[:ddnsupdate][:resolv_conf][:nameservers] = temp_resolv_conf[:nameservers]
+node.default[:ddnsupdate][:resolv_conf][:search] = temp_resolv_conf[:search]
+node.default[:ddnsupdate][:resolv_conf][:domain] = temp_resolv_conf[:domain]
+
+node.default[:ddnsupdate][:server] = node.ddnsupdate.resolv_conf.nameservers.first if node.ddnsupdate.use_resolv_conf
+
+raise "node[:ddnsupdate][:server] must be configured or enable node[:ddnsupdate][:use_resolv_conf]" if not node.ddnsupdate.server
+

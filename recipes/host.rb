@@ -17,10 +17,13 @@
 # limitations under the License.
 #
 
+include_recipe "ddnsupdate::default"
 include_recipe "ddnsupdate::install"
 
+raise "node[:ddnsupdate][:host][:reverse_zone] must be configured" unless node.ddnsupdate.host.reverse_zone
+
 # Command for host nsupdate
-template node.ddnsupdate.host_nsupdate do
+template node.ddnsupdate.host.nsupdate_bin do
   mode      0755
   owner     'root'
   group     'root'
@@ -29,19 +32,19 @@ template node.ddnsupdate.host_nsupdate do
 end
 
 # host nsupdate config file
-template node.ddnsupdate.host_config do
+template node.ddnsupdate.host.config do
   mode    0655
   owner   'root'
   group   'root'
   source  'host_nsupdate_config.erb'
   variables ({
     :server   => node.ddnsupdate.server,
-    :zone     => node.ddnsupdate.zone,
+    :zone     => (node.ddnsupdate.host.auto_fqdn_zone ? node.domain : node.ddnsupdate.host.zone),
     :fqdn     => node.fqdn,
     :ttl      => node.ddnsupdate.ttl,
     :ptr      => "#{node.ipaddress.split('.').reverse.join('.')}.in-addr.arpa",
     :ip       => node.ipaddress,
-    :reverse_zone   => node.ddnsupdate.reverse_zone
+    :reverse_zone   => node.ddnsupdate.host.reverse_zone
   })
   notifies  :run, 'execute[host_nsupdate]'
 end
@@ -49,16 +52,16 @@ end
 # Create / Update fqdn - ip A and PTR RR immediately
 execute 'host_nsupdate' do
   cwd     '/tmp'
-  command node.ddnsupdate.host_nsupdate
+  command node.ddnsupdate.host.nsupdate_bin
   action  :nothing
 end
 
 # fqdn - ip A and PTR RR cron schedule
 cron_d "host_nsupdate" do
-  minute      node.ddnsupdate.cron.host.minute
-  hour        node.ddnsupdate.cron.host.hour
-  user        node.ddnsupdate.cron.host.user
-  command     node.ddnsupdate.host_nsupdate
-  action      node.ddnsupdate.cron.host.action
+  minute      node.ddnsupdate.host.cron.minute
+  hour        node.ddnsupdate.host.cron.hour
+  user        node.ddnsupdate.host.cron.user
+  command     node.ddnsupdate.host.nsupdate_bin
+  action      node.ddnsupdate.host.cron.action
 end
 

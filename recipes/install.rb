@@ -24,12 +24,17 @@ when 'rhel'
   package 'bind-utils'
 end
 
+if node.ddnsupdate.ddnssec.manage
+  raise "node[:ddnsupdate][:ddnssec][:secret] must be configured" unless node.ddnsupdate.ddnssec.secret
+  raise "node[:ddnsupdate][:ddnssec][:name] must be configured" unless node.ddnsupdate.ddnssec.name
+end
+
 # ddnssec key file
-template node.ddnsupdate.ddnssec.key_file do
+template node.ddnsupdate.ddnssec.file do
   mode        0400
   owner       'root'
   group       'root'
   source      node.ddnsupdate.ddnssec.template_source
-  sensitive   true
   only_if     { node.ddnsupdate.ddnssec.manage }
 end
+
