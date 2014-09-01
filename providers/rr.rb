@@ -23,33 +23,6 @@ def whyrun_supported?
   true
 end
 
-action :update do
-  rr_name   = DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)
-  rr_value  = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)
-  Chef::Log.info("EXISTING #{rr_name}(#{new_resource.type.upcase})=#{rr_value.inspect}")
-
-  new_resource.value.each do |rvalue|
-    raise "MISSING MX RR priority #{rr_name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' and not new_resource.priority
-
-    ruby_block "UPDATE #{rr_name}(#{new_resource.type.upcase})=#{rvalue}" do
-      block do
-        IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
-          io.puts "server #{new_resource.server}"
-          io.puts "zone #{new_resource.zone}"
-          io.puts "update delete #{rr_name} #{new_resource.type.upcase} #{new_resource.priority if new_resource.type.upcase == 'MX'} #{rvalue}"
-          io.puts "update add #{rr_name} #{new_resource.ttl} #{new_resource.type.upcase} #{new_resource.priority if new_resource.type.upcase == 'MX'} #{rvalue}"
-          io.puts 'send'
-          io.close_write
-          Chef::Log.info io.read
-        end
-      end
-      only_if { rr_value.include?(rvalue) }
-    end
-
-  end
-
-end
-
 action :delete do
   rr_name   = DDNSUpdate.rr2ptr(new_resource.type, new_resource.name)
   rr_value  = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)

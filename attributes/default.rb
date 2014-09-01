@@ -6,8 +6,7 @@ default[:ddnsupdate]  = {
 
   :rr     => {
     :create   => {},
-    :delete   => {},
-    :update   => {}
+    :delete   => {}
   },
 
   :resolv_conf  => {

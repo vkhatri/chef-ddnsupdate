@@ -19,7 +19,7 @@
 
 require 'resolv'
 
-actions :create, :delete, :update
+actions :create, :delete
 
 default_action :create
 
