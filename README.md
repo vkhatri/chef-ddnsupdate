@@ -44,7 +44,7 @@ None
 
 **LWRP - ddnsupdate_rr*
 
-rr LWRP can create/delete/update Dynamic DNS RR.
+rr LWRP is used to create/delete Dynamic DNS RR.
 
 **LWRP example**
 
@@ -55,34 +55,35 @@ rr LWRP can create/delete/update Dynamic DNS RR.
         "rr": {
           "create": {
             "resource record name": {
-							"type": "A",
-							"value": [
-								"resource record ip address 1",
-								"resource record ip address 2"
-							]
-							"ttl": 300 # override default ttl value
-						},
+              "type": "A",
+              "value": [
+                "resource record ip address 1",
+                "resource record ip address 2"
+              ],
+              "ttl": 300 # override default ttl value
+            },
             "resource record ip": {
-							"type": "PTR",
-							"value": [
-								"resource record name 1",
-								"resource record name 2"
-							]
-							"ttl": 900
-						},
+              "type": "PTR",
+              "value": [
+                "resource record name 1",
+                "resource record name 2"
+              ],
+              "ttl": 900
+            },
             "resource record zone": {
-							"type": "MX",
-							"priority": 10
-							"value": [
-								"resource record name"
-							]
-						}
+              "type": "MX",
+              "priority": 10,
+              "value": [
+                "resource record name"
+              ]
+            }
           },
           "delete": {
             "resource record name": {
-							"type": "type",
-							"value": "resource record value"
-						}
+              "type": "type",
+              "value": "resource record value",
+              "purge": false
+            }
           }
         }
       }
@@ -99,7 +100,7 @@ rr LWRP can create/delete/update Dynamic DNS RR.
 
     ddnsupdate_rr rr_name_description
       option option_name
-			action :delete
+      action :delete
     end
 
 *Delete a RR with Purge using LWRP*
@@ -109,8 +110,8 @@ set RR attribute `purge`.
 
     ddnsupdate_rr rr_name_description
       option option_name
-			purge  true
-			action :delete
+      purge  true
+      action :delete
     end
 
 **LWRP Options**
@@ -135,7 +136,7 @@ Parameters:
  * `default[:ddnsupdate][:use_resolv_conf]` (default: `nil`): if set, sets `default[:ddnsupdate][:resolv_conf]` attributes and `default[:ddnsupdate][:server]`
 
         If there is no server ip address configured via attribute `default[:ddnsupdate][:server]`,
-				this attribute will use first nameserver entry from /etc/resolv.conf file
+        this attribute will use first nameserver entry from /etc/resolv.conf file
 
  * `default[:ddnsupdate][:ttl]` (default: `300`): RR TTL value
 
