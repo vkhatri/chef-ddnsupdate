@@ -9,6 +9,7 @@ default[:ddnsupdate]  = {
     :delete   => {}
   },
 
+# These attributes are set by cookbook.
   :resolv_conf  => {
     :nameservers  => [],
     :domain       => nil,
