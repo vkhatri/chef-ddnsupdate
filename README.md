@@ -125,7 +125,7 @@ Parameters:
 - *purge (default: false)*	- delete all RR record values, in conjunction with action :delete
 - *value (default: `[]`, required)*				- array of RR value(s)
 - *server (default: `node.ddnsupdate.server`)*	- RR server to create/delete
-- *zone (require)									- RR zone
+- *zone (require)*								- RR zone
 - *priority (default: 10)*	- MX RR priority
 - *ddnssec_key_file (default: `node.ddnsupdate.ddnssec.file`)*	- RR ddnssec key file
 - *resolv_conf_file (default: `/etc/resolv.conf`)*				- resolv conf file
@@ -135,8 +135,9 @@ Parameters:
  * `default[:ddnsupdate][:server]` (default: `nil`): ddns server, overrides /etc/resolv.conf dns server lookup, required if `default[:ddnsupdate][:use_resolv_conf]` is not set
  * `default[:ddnsupdate][:use_resolv_conf]` (default: `nil`): if set, sets `default[:ddnsupdate][:resolv_conf]` attributes and `default[:ddnsupdate][:server]`
 
-        If there is no server ip address configured via attribute `default[:ddnsupdate][:server]`,
-        this attribute will use first nameserver entry from /etc/resolv.conf file
+        If there is no server ip address configured via attribute
+        default[:ddnsupdate][:server], this attribute will use
+        first nameserver entry from /etc/resolv.conf file.
 
  * `default[:ddnsupdate][:ttl]` (default: `300`): RR TTL value
 
