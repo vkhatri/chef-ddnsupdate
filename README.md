@@ -207,6 +207,85 @@ Deleting a RR is also simple. Like action :create, :delete will only delete defi
 
 To purge all the RR values completely enable `purge` attribute for RR as defined in the LWRP examples.
 
+
+## Chef role to manage node ddns and RR
+
+Below Chef role is a sample to manage host and other RR.
+
+This sample uses first nameserver defined in /etc/resolv.conf file.
+
+    "default_attributes": {
+      "ddnsupdate": {
+        "use_resolv_conf": true,
+				"ttl": 300,
+
+        "ddnssec": {
+          "name": "internal.domain.com",
+          "secret": "XYZXYZ....."
+					},
+
+        "host": {
+          "reverse_zone": "10.in-addr.arpa"
+        },
+
+        "rr": {
+          "create": {
+            "test00.internal.domain.com": {
+              "type": "A",
+              "zone": "internal.domain.com",
+              "value": [
+                "10.0.0.101",
+                "10.0.0.102"
+              ]
+            },
+            "10.0.0.101": {
+              "type": "PTR",
+              "zone": "10.in-addr.arpa",
+              "value": [
+                "test00.internal.domain.com"
+              ]
+            },
+            "10.0.0.102": {
+              "type": "PTR",
+              "zone": "10.in-addr.arpa",
+              "value": [
+                "test00.internal.domain.com"
+              ]
+            },
+            "test02.internal.domain.com": {
+              "server": "10.0.1.2",
+              "type": "cname",
+              "zone": "internal.domain.com",
+              "value": [
+                "test00.internal.domain.com"
+              ]
+            }
+          },
+          "delete": {
+            "test01.internal.domain.com": {
+              "purge": false,
+              "type": "cname",
+              "ttl": 300,
+              "zone": "internal.domain.com",
+              "value": [
+                "test00.internal.domain.com"
+              ]
+            }
+          }
+        }
+      }
+    }
+
+
+To use a differenet DNS server, update below attributes:
+
+    "default_attributes": {
+      "ddnsupdate": {
+        "use_resolv_conf": false,
+        "server": "10.0.0.1",
+				...
+
+
 ## Contributing
 
 1. Fork the repository on Github
