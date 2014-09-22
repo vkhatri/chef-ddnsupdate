@@ -1,7 +1,7 @@
 ddnsupdate Cookbook
 ===================
 
-This is an [OpsCode Chef] cookbook for Managing BIND DNS Resource Records using nsupdate.
+This is a [Chef] cookbook for Managing BIND DNS Resource Records using nsupdate.
 
 This cookbook was primarily developed to Manage an Internal BIND DNS Domain Dynamic Records for Instances
 in Amazon EC2 infrastructure (where DHCP could not perform DNS Dynamic Records Updates, this
@@ -299,7 +299,7 @@ To use a differenet DNS server, update below attributes:
 
 ## Copyright & License
 
-Authors:: Virender Khatri (vir.khatri@gmail.com)
+Authors:: Virender Khatri and [Contributors]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -314,4 +314,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-[Opscode Chef]: https://wiki.opscode.com/display/chef/Home
+[Chef]: https://www.getchef.com/chef/
+[Contributors]: https://github.com/vkhatri/chef-ddnsupdate/graphs/contributors
