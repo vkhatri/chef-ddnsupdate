@@ -35,11 +35,9 @@ module DDNSUpdate
       case type.upcase
       when 'A'
         Resolv::DNS.new(o).getaddresses(resource).map(&:to_s)
-        # Resolv::DNS.new(o).getaddresses(resource).map { |i| i.to_s }
         # Resolv::DNS.new.getresources(resource, Resolv::DNS::Resource::IN::A).map {|i| i.address.to_s}
       when 'PTR'
         Resolv::DNS.new(o).getnames(resource).map(&:to_s)
-        # Resolv::DNS.new(o).getnames(resource).map { |i| i.to_s }
       when 'CNAME'
         Resolv::DNS.new(o).getresources(resource, Resolv::DNS::Resource::IN::CNAME).map { |i| i.name.to_s }
       when 'MX'
@@ -49,10 +47,8 @@ module DDNSUpdate
       case type.upcase
       when 'A'
         Resolv.getaddresses(resource).map(&:to_s)
-        # Resolv.getaddresses(resource).map { |i| i.to_s }
       when 'PTR'
         Resolv.getnames(resource).map(&:to_s)
-        # Resolv.getnames(resource).map { |i| i.to_s }
       when 'CNAME'
         Resolv::DNS.new.getresources(resource, Resolv::DNS::Resource::IN::CNAME).map { |i| i.name.to_s }
       when 'MX'
