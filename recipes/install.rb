@@ -17,24 +17,23 @@
 # limitations under the License.
 #
 
-case node.platform_family
+case node['platform_family']
 when 'debian'
   package 'dnsutils'
 when 'rhel'
   package 'bind-utils'
 end
 
-if node.ddnsupdate.ddnssec.manage
-  raise "node[:ddnsupdate][:ddnssec][:secret] must be configured" unless node.ddnsupdate.ddnssec.secret
-  raise "node[:ddnsupdate][:ddnssec][:name] must be configured" unless node.ddnsupdate.ddnssec.name
+if node['ddnsupdate']['ddnssec']['manage']
+  fail "node['ddnsupdate']['ddnssec']['secret'] must be configured" unless node['ddnsupdate']['ddnssec']['secret']
+  fail "node['ddnsupdate']['ddnssec']['name'] must be configured" unless node['ddnsupdate']['ddnssec']['name']
 end
 
 # ddnssec key file
-template node.ddnsupdate.ddnssec.file do
-  mode        0400
-  owner       'root'
-  group       'root'
-  source      node.ddnsupdate.ddnssec.template_source
-  only_if     { node.ddnsupdate.ddnssec.manage }
+template node['ddnsupdate']['ddnssec']['file'] do
+  mode 0400
+  owner 'root'
+  group 'root'
+  source node['ddnsupdate']['ddnssec']['template_source']
+  only_if     { node['ddnsupdate']['ddnssec']['manage'] }
 end
-

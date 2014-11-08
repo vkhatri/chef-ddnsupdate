@@ -17,22 +17,22 @@
 # limitations under the License.
 #
 
-include_recipe "ddnsupdate::default"
-include_recipe "ddnsupdate::install"
+include_recipe 'ddnsupdate::default'
+include_recipe 'ddnsupdate::install'
 
-node.ddnsupdate.rr.each do |r_action, r|
-  r.each do |_resource, _resource_option|
-    ddnsupdate_rr _resource do
-      type    _resource_option[:type]
-      ttl     _resource_option[:ttl]
-      value   _resource_option[:value]
-      zone    _resource_option[:zone]
-      server  _resource_option[:server]
-      purge   _resource_option[:purge]
-      priority          _resource_option[:priority]
-      ddnssec_key_file  _resource_option[:ddnssec_key_file]
-      resolv_conf_file  _resource_option[:resolv_conf_file]
-      action  r_action
+node['ddnsupdate']['rr'].each do |r_action, r|
+  r.each do |resource_rr, resource_rr_option|
+    ddnsupdate_rr resource_rr do
+      type resource_rr_option['type']
+      ttl resource_rr_option['ttl']
+      value resource_rr_option['value']
+      zone resource_rr_option['zone']
+      server resource_rr_option['server']
+      purge resource_rr_option['purge']
+      priority resource_rr_option['priority']
+      ddnssec_key_file resource_rr_option['ddnssec_key_file']
+      resolv_conf_file resource_rr_option['resolv_conf_file']
+      action r_action
     end
   end
 end

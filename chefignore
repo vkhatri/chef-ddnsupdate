@@ -93,3 +93,12 @@ Vagrantfile
 ##########
 .travis.yml
 
+# Coverage #
+##########
+coverage/
+
+# Berkshelf
+Berksfile.lock
+
+# Bundler
+Gemfile.lock

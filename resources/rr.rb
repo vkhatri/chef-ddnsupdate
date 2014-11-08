@@ -24,11 +24,11 @@ actions :create, :delete
 default_action :create
 
 attribute :type,        :kind_of => String, :regex => /a|ptr|cname|mx/i, :required => true, :default => nil
-attribute :ttl,         :kind_of => [String, Integer], :regex => /.*/, :default => node.ddnsupdate.ttl
+attribute :ttl,         :kind_of => [String, Integer], :regex => /.*/, :default => node['ddnsupdate']['ttl']
 attribute :purge,       :kind_of => [TrueClass, FalseClass], :default => false
 attribute :value,       :kind_of => Array,  :required => true, :default => []
 attribute :zone,        :kind_of => String, :regex => /.*/, :required => true, :default => nil
-attribute :server,      :kind_of => String, :regex => Resolv::IPv4::Regex, :default => node.ddnsupdate.server
+attribute :server,      :kind_of => String, :regex => Resolv::IPv4::Regex, :default => node['ddnsupdate']['server']
 attribute :priority,    :kind_of => [String, Integer], :regex => /.*/, :default => 10
-attribute :ddnssec_key_file,      :kind_of => String, :regex => /.*/, :default => node.ddnsupdate.ddnssec.file
+attribute :ddnssec_key_file,      :kind_of => String, :regex => /.*/, :default => node['ddnsupdate']['ddnssec']['file']
 attribute :resolv_conf_file,      :kind_of => String, :regex => /.*/, :default => '/etc/resolv.conf'

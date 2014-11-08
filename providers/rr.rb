@@ -28,7 +28,7 @@ action :delete do
   rr_value  = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)
   Chef::Log.info("EXISTING #{rr_name}(#{new_resource.type.upcase})=#{rr_value.inspect}")
   new_resource.value.each do |rvalue|
-    raise "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' and not new_resource.priority and not (new_resource.purge or rr.count == 1)
+    fail "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' && !new_resource.priority && !(new_resource.purge || rr.count == 1)
     ruby_block "DELETE #{rr_name}(#{new_resource.type.upcase})=#{rvalue}" do
       block do
         IO.popen("nsupdate -k #{new_resource.ddnssec_key_file} -v", 'r+') do |io|
@@ -44,7 +44,7 @@ action :delete do
           Chef::Log.info io.read
         end
       end
-      only_if { rr_value.include?(rvalue) or new_resource.purge }
+      only_if { rr_value.include?(rvalue) || new_resource.purge }
     end
   end
 end
@@ -54,7 +54,7 @@ action :create do
   rr_value  = DDNSUpdate.dig(new_resource.type, new_resource.name, new_resource.server)
   Chef::Log.info("EXISTING #{rr_name}(#{new_resource.type.upcase})=#{rr_value.inspect}")
   new_resource.value.each do |rvalue|
-    raise "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' and not new_resource.priority
+    fail "MISSING MX RR priority #{new_resource.name}(#{new_resource.type.upcase})=#{rvalue}" if new_resource.type.upcase == 'MX' && !new_resource.priority
 
     ruby_block "CREATE #{rr_name}(#{new_resource.type.upcase})=#{rvalue}" do
       block do
