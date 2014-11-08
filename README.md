@@ -15,6 +15,11 @@ features and attributes will be added over time, **feel free to contribute**
 what you find missing!
 
 
+## Cookbook Repository
+
+https://github.com/vkhatri/chef-ddnsupdate
+
+
 ## Supported DDNS Resource Record Types
 
 - A
@@ -30,11 +35,6 @@ what you find missing!
 - `ddnsupdate::host`  		- configure nsupdate to manage Host DDNS A & PTR RR
 
 - `ddnsupdate::rr`   			- manage DDNS RR via node attribute using LWRP
-
-
-## Cookbook Repository
-
-https://github.com/vkhatri/ddnsupdate
 
 
 ## Cookbook Dependencies
