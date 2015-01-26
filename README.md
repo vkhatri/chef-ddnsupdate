@@ -150,21 +150,23 @@ Parameters:
  * `default[:ddnsupdate][:ddnssec][:name]` (default: `nil`): bind ddnssec key name
  * `default[:ddnsupdate][:ddnssec][:algo]` (default: `HMAC-MD5`): bind ddnssec key algo
  * `default[:ddnsupdate][:ddnssec][:secret]` (default: `nil`): bind dnssec secret
- * `default[:ddnsupdate][:ddnssec][:template_cookbook]` (default: `ddnsupdate`): bind dnssec configuration file template
- * `default[:ddnsupdate][:ddnssec][:template_source]` (default: `nsupdate.key.erb`): bind dnssec configuration file template
+ * `default[:ddnsupdate][:ddnssec][:template_cookbook]` (default: `ddnsupdate`): bind dnssec configuration file template cookbook
+ * `default[:ddnsupdate][:ddnssec][:template_source]` (default: `nsupdate.key.erb`): bind dnssec key configuration file template
 
 
 ## Cookbook host Attributes
 
- * `default[:ddnsupdate][:host][:config]` (default: `/etc/nsupdate`): ddnsupdate host nsupdate config file
- * `default[:ddnsupdate][:host][:nsupdate_bin]` (default: `/usr/local/bin/host_nsupdate`): nsupdate script for host
- * `default[:ddnsupdate][:host][:zone]` (default: `node.domain`): ddnsupdate host nsupdate config file
- * `default[:ddnsupdate][:host][:reverse_zone]` (default: `/etc/nsupdate`, required): ddnsupdate host nsupdate config file
+ * `default[:ddnsupdate][:host][:manage]` (default: `true`): whether to run ddnsupdate to update dynamic dns record
+ * `default[:ddnsupdate][:host][:config]` (default: `/etc/nsupdate`): ddnsupdate host config file
+ * `default[:ddnsupdate][:host][:nsupdate_bin]` (default: `/usr/local/bin/host_nsupdate`): host ddnsupdate script location
+ * `default[:ddnsupdate][:host][:zone]` (default: `node.domain`): ddnsupdate forward zone, default to `node[:domain]` if not set
+ * `default[:ddnsupdate][:host][:reverse_zone]` (default: `nil`, required): ddnsupdate reverse zone, required as it might varies from standard host subnet/network
  * `default[:ddnsupdate][:host][:auto_fqdn_zone]` (default: `true`): use node fqdn domain
 
 
 ## Cookbook host nsupdate crond Attributes
 
+ * `default[:ddnsupdate][:host][:manage]` (default: `true`): whether to register node ddns record with dns server, will always setup node ddnsupdate nsupdate scripts
  * `default[:ddnsupdate][:ddnssec][:cron][:host][:minute]` (default: `*/15`): host nsupdate cron schedule minutes interval
  * `default[:ddnsupdate][:ddnssec][:cron][:host][:hour]` (default: `*`): host nsupdate cron schedule hour interval
  * `default[:ddnsupdate][:ddnssec][:cron][:host][:user]` (default: `root`): host nsupdate cron schedule user
@@ -218,7 +220,7 @@ This sample uses first nameserver defined in /etc/resolv.conf file.
     "default_attributes": {
       "ddnsupdate": {
         "use_resolv_conf": true,
-				"ttl": 300,
+		"ttl": 300,
 
         "ddnssec": {
           "name": "internal.domain.com",
