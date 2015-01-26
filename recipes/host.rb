@@ -31,6 +31,9 @@ template node['ddnsupdate']['host']['nsupdate_bin'] do
   notifies :run, 'execute[host_nsupdate]'
 end
 
+node_domain = node['ddnsupdate']['host']['auto_fqdn_zone'] && node['domain'] ? node['domain'] : node['ddnsupdate']['host']['zone']
+node_fqdn = node['fqdn'] ? node['fqdn'] : (node['hostname'] + '.' + node_domain)
+
 # host nsupdate config file
 template node['ddnsupdate']['host']['config'] do
   mode 0655
@@ -38,8 +41,8 @@ template node['ddnsupdate']['host']['config'] do
   group 'root'
   source 'host_nsupdate_config.erb'
   variables(:server   => node['ddnsupdate']['server'],
-            :zone     => (node['ddnsupdate']['host'].auto_fqdn_zone ? node['domain'] : node['ddnsupdate']['host']['zone']),
-            :fqdn     => node['fqdn'],
+            :zone     => node_domain,
+            :fqdn     => node_fqdn,
             :ttl      => node['ddnsupdate']['ttl'],
             :ptr      => "#{node['ipaddress'].split('.').reverse.join('.')}.in-addr.arpa",
             :ip       => node['ipaddress'],
@@ -52,6 +55,7 @@ end
 execute 'host_nsupdate' do
   cwd '/tmp'
   command node['ddnsupdate']['host']['nsupdate_bin']
+  only_if { node['ddnsupdate']['host']['manage'] }
   action :nothing
 end
 
@@ -62,4 +66,5 @@ cron_d 'host_nsupdate' do
   user node['ddnsupdate']['host']['cron']['user']
   command node['ddnsupdate']['host']['nsupdate_bin']
   action node['ddnsupdate']['host']['cron']['action']
+  only_if { node['ddnsupdate']['host']['manage'] }
 end

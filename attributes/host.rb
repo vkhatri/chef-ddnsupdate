@@ -1,4 +1,6 @@
 
+default['ddnsupdate']['host']['manage'] = true
+
 default['ddnsupdate']['host']['cron']['minute'] = '*/15'
 default['ddnsupdate']['host']['cron']['hour'] = '*'
 default['ddnsupdate']['host']['cron']['user'] = 'root'
