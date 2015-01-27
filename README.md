@@ -159,9 +159,9 @@ Parameters:
  * `default[:ddnsupdate][:host][:manage]` (default: `true`): whether to run ddnsupdate to update dynamic dns record
  * `default[:ddnsupdate][:host][:config]` (default: `/etc/nsupdate`): ddnsupdate host config file
  * `default[:ddnsupdate][:host][:nsupdate_bin]` (default: `/usr/local/bin/host_nsupdate`): host ddnsupdate script location
- * `default[:ddnsupdate][:host][:zone]` (default: `node.domain`): ddnsupdate forward zone, default to `node[:domain]` if not set
+ * `default[:ddnsupdate][:host][:zone]` (default: `node.domain`): ddnsupdate forward zone, default to `node[:domain]`
  * `default[:ddnsupdate][:host][:reverse_zone]` (default: `nil`, required): ddnsupdate reverse zone, required as it might varies from standard host subnet/network
- * `default[:ddnsupdate][:host][:auto_fqdn_zone]` (default: `true`): use node fqdn domain
+ * `default[:ddnsupdate][:host][:auto_fqdn_zone]` (default: `true`): use `node['fqdn']` & `node['domain']`
 
 
 ## Cookbook host nsupdate crond Attributes

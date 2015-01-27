@@ -3,6 +3,15 @@ ddnsupdate CHANGELOG
 
 This file is used to list changes made in each version of the ddnsupdate cookbook.
 
+0.1.8
+-----
+
+- Virender Khatri - fixed missing ohai node attribute fqdn/domain issue, now
+                    falls back to provided zone if node['domain'] is missing.
+                    same fix applied for missing node['fqdn']
+
+- Virender Khatri - disabled knife lint check temporarily
+
 0.1.5
 -----
 
