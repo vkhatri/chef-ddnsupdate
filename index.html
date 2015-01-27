@@ -1,38 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Chef DDNSupdate : Installs/Configures nsupdate to manage host dynamic dns and other RR">
+    <title>Chef DDNSupdate by vkhatri</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <title>Chef DDNSupdate</title>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/vkhatri/chef-ddnsupdate">View on GitHub</a>
-
-          <h1 id="project_title">Chef DDNSupdate</h1>
-          <h2 id="project_tagline">Installs/Configures nsupdate to manage host dynamic dns and other RR</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/vkhatri/chef-ddnsupdate/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/vkhatri/chef-ddnsupdate/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+    <div class="wrapper">
+      <header>
+        <h1>Chef DDNSupdate</h1>
+        <p>Installs/Configures nsupdate to manage host dynamic dns and other RR</p>
+        <p class="view"><a href="https://github.com/vkhatri/chef-ddnsupdate">View the Project on GitHub <small>vkhatri/chef-ddnsupdate</small></a></p>
+        <ul>
+          <li><a href="https://github.com/vkhatri/chef-ddnsupdate/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/vkhatri/chef-ddnsupdate/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/vkhatri/chef-ddnsupdate">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>
-<a name="ddnsupdate-cookbook" class="anchor" href="#ddnsupdate-cookbook"><span class="octicon octicon-link"></span></a>ddnsupdate Cookbook</h1>
+<a id="ddnsupdate-cookbook" class="anchor" href="#ddnsupdate-cookbook" aria-hidden="true"><span class="octicon octicon-link"></span></a>ddnsupdate Cookbook</h1>
+
+<p><a href="https://travis-ci.org/vkhatri/chef-ddnsupdate"><img src="https://travis-ci.org/vkhatri/chef-ddnsupdate.svg?branch=master" alt="Build Status"></a></p>
 
 <p>This is a <a href="https://www.getchef.com/chef/">Chef</a> cookbook for Managing BIND DNS Resource Records using nsupdate.</p>
 
@@ -46,34 +44,38 @@ features and attributes will be added over time, <strong>feel free to contribute
 what you find missing!</p>
 
 <h2>
-<a name="supported-ddns-resource-record-types" class="anchor" href="#supported-ddns-resource-record-types"><span class="octicon octicon-link"></span></a>Supported DDNS Resource Record Types</h2>
+<a id="cookbook-repository" class="anchor" href="#cookbook-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Repository</h2>
+
+<p><a href="https://github.com/vkhatri/chef-ddnsupdate">https://github.com/vkhatri/chef-ddnsupdate</a></p>
+
+<h2>
+<a id="supported-ddns-resource-record-types" class="anchor" href="#supported-ddns-resource-record-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported DDNS Resource Record Types</h2>
 
 <ul>
 <li>A</li>
 <li>PTR</li>
 <li>CNAME</li>
 <li>MX (limited support for MX RR priority)</li>
-</ul><h2>
-<a name="cookbook-recipes" class="anchor" href="#cookbook-recipes"><span class="octicon octicon-link"></span></a>Cookbook Recipes</h2>
+</ul>
+
+<h2>
+<a id="cookbook-recipes" class="anchor" href="#cookbook-recipes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Recipes</h2>
 
 <ul>
 <li><p><code>ddnsupdate::install</code>   - install bind utils package and setup DDNSSEC Key file</p></li>
 <li><p><code>ddnsupdate::host</code>        - configure nsupdate to manage Host DDNS A &amp; PTR RR</p></li>
 <li><p><code>ddnsupdate::rr</code>              - manage DDNS RR via node attribute using LWRP</p></li>
-</ul><h2>
-<a name="cookbook-repository" class="anchor" href="#cookbook-repository"><span class="octicon octicon-link"></span></a>Cookbook Repository</h2>
-
-<p><a href="https://github.com/vkhatri/ddnsupdate">https://github.com/vkhatri/ddnsupdate</a></p>
+</ul>
 
 <h2>
-<a name="cookbook-dependencies" class="anchor" href="#cookbook-dependencies"><span class="octicon octicon-link"></span></a>Cookbook Dependencies</h2>
+<a id="cookbook-dependencies" class="anchor" href="#cookbook-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Dependencies</h2>
 
 <p>None</p>
 
 <h2>
-<a name="cookbook-rr-lwrp" class="anchor" href="#cookbook-rr-lwrp"><span class="octicon octicon-link"></span></a>Cookbook rr LWRP</h2>
+<a id="cookbook-rr-lwrp" class="anchor" href="#cookbook-rr-lwrp" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook rr LWRP</h2>
 
-<p>**LWRP - ddnsupdate_rr*</p>
+<p>*<em>LWRP - ddnsupdate_rr</em></p>
 
 <p>rr LWRP is used to create/delete Dynamic DNS RR.</p>
 
@@ -173,14 +175,16 @@ end
 <em>ddnssec_key_file (default: <code>node.ddnsupdate.ddnssec.file</code>)</em>  - RR ddnssec key file</li>
 <li>
 <em>resolv_conf_file (default: <code>/etc/resolv.conf</code>)</em>              - resolv conf file</li>
-</ul><h2>
-<a name="cookbook-core-attributes" class="anchor" href="#cookbook-core-attributes"><span class="octicon octicon-link"></span></a>Cookbook core Attributes</h2>
+</ul>
+
+<h2>
+<a id="cookbook-core-attributes" class="anchor" href="#cookbook-core-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook core Attributes</h2>
 
 <ul>
 <li>
 <code>default[:ddnsupdate][:server]</code> (default: <code>nil</code>): ddns server, overrides /etc/resolv.conf dns server lookup, required if <code>default[:ddnsupdate][:use_resolv_conf]</code> is not set</li>
 <li>
-<p><code>default[:ddnsupdate][:use_resolv_conf]</code> (default: <code>nil</code>): if set, sets <code>default[:ddnsupdate][:resolv_conf]</code> attributes and <code>default[:ddnsupdate][:server]</code></p>
+<p><code>default[:ddnsupdate][:use_resolv_conf]</code> (default: <code>false</code>): if set, sets <code>default[:ddnsupdate][:resolv_conf]</code> &amp; <code>default[:ddnsupdate][:server]</code> attributes</p>
 
 <pre><code>If there is no server ip address configured via attribute
 default[:ddnsupdate][:server], this attribute will use
@@ -188,8 +192,10 @@ first nameserver entry from /etc/resolv.conf file.
 </code></pre>
 </li>
 <li><p><code>default[:ddnsupdate][:ttl]</code> (default: <code>300</code>): RR TTL value</p></li>
-</ul><h2>
-<a name="cookbook-ddnssec-attributes" class="anchor" href="#cookbook-ddnssec-attributes"><span class="octicon octicon-link"></span></a>Cookbook ddnssec Attributes</h2>
+</ul>
+
+<h2>
+<a id="cookbook-ddnssec-attributes" class="anchor" href="#cookbook-ddnssec-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook ddnssec Attributes</h2>
 
 <ul>
 <li>
@@ -204,27 +210,37 @@ first nameserver entry from /etc/resolv.conf file.
 <li>
 <code>default[:ddnsupdate][:ddnssec][:secret]</code> (default: <code>nil</code>): bind dnssec secret</li>
 <li>
-<code>default[:ddnsupdate][:ddnssec][:template_cookbook]</code> (default: <code>ddnsupdate</code>): bind dnssec configuration file template</li>
+<code>default[:ddnsupdate][:ddnssec][:template_cookbook]</code> (default: <code>ddnsupdate</code>): bind dnssec configuration file template cookbook</li>
 <li>
-<code>default[:ddnsupdate][:ddnssec][:template_source]</code> (default: <code>nsupdate.key.erb</code>): bind dnssec configuration file template</li>
-</ul><h2>
-<a name="cookbook-host-attributes" class="anchor" href="#cookbook-host-attributes"><span class="octicon octicon-link"></span></a>Cookbook host Attributes</h2>
+<code>default[:ddnsupdate][:ddnssec][:template_source]</code> (default: <code>nsupdate.key.erb</code>): bind dnssec key configuration file template</li>
+</ul>
+
+<h2>
+<a id="cookbook-host-attributes" class="anchor" href="#cookbook-host-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook host Attributes</h2>
 
 <ul>
 <li>
-<code>default[:ddnsupdate][:host][:config]</code> (default: <code>/etc/nsupdate</code>): ddnsupdate host nsupdate config file</li>
+<code>default[:ddnsupdate][:host][:manage]</code> (default: <code>true</code>): whether to run ddnsupdate to update dynamic dns record</li>
 <li>
-<code>default[:ddnsupdate][:host][:nsupdate_bin]</code> (default: <code>/usr/local/bin/host_nsupdate</code>): nsupdate script for host</li>
+<code>default[:ddnsupdate][:host][:config]</code> (default: <code>/etc/nsupdate</code>): ddnsupdate host config file</li>
 <li>
-<code>default[:ddnsupdate][:host][:zone]</code> (default: <code>node.domain</code>): ddnsupdate host nsupdate config file</li>
+<code>default[:ddnsupdate][:host][:nsupdate_bin]</code> (default: <code>/usr/local/bin/host_nsupdate</code>): host ddnsupdate script location</li>
 <li>
-<code>default[:ddnsupdate][:host][:reverse_zone]</code> (default: <code>/etc/nsupdate</code>, required): ddnsupdate host nsupdate config file</li>
+<code>default[:ddnsupdate][:host][:zone]</code> (default: <code>node.domain</code>): ddnsupdate forward zone, default to <code>node[:domain]</code>
+</li>
 <li>
-<code>default[:ddnsupdate][:host][:auto_fqdn_zone]</code> (default: <code>true</code>): use node fqdn domain</li>
-</ul><h2>
-<a name="cookbook-host-nsupdate-crond-attributes" class="anchor" href="#cookbook-host-nsupdate-crond-attributes"><span class="octicon octicon-link"></span></a>Cookbook host nsupdate crond Attributes</h2>
+<code>default[:ddnsupdate][:host][:reverse_zone]</code> (default: <code>nil</code>, required): ddnsupdate reverse zone, required as it might varies from standard host subnet/network</li>
+<li>
+<code>default[:ddnsupdate][:host][:auto_fqdn_zone]</code> (default: <code>true</code>): use <code>node['fqdn']</code> &amp; <code>node['domain']</code>
+</li>
+</ul>
+
+<h2>
+<a id="cookbook-host-nsupdate-crond-attributes" class="anchor" href="#cookbook-host-nsupdate-crond-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook host nsupdate crond Attributes</h2>
 
 <ul>
+<li>
+<code>default[:ddnsupdate][:host][:manage]</code> (default: <code>true</code>): whether to register node ddns record with dns server, will always setup node ddnsupdate nsupdate scripts</li>
 <li>
 <code>default[:ddnsupdate][:ddnssec][:cron][:host][:minute]</code> (default: <code>*/15</code>): host nsupdate cron schedule minutes interval</li>
 <li>
@@ -233,8 +249,10 @@ first nameserver entry from /etc/resolv.conf file.
 <code>default[:ddnsupdate][:ddnssec][:cron][:host][:user]</code> (default: <code>root</code>): host nsupdate cron schedule user</li>
 <li>
 <code>default[:ddnsupdate][:ddnssec][:cron][:host][:action]</code> (default: <code>create</code>): crond resource action, set it to delete to prevent cron schedule</li>
-</ul><h2>
-<a name="cookbook-rr-nsupdate-attributes" class="anchor" href="#cookbook-rr-nsupdate-attributes"><span class="octicon octicon-link"></span></a>Cookbook rr nsupdate Attributes</h2>
+</ul>
+
+<h2>
+<a id="cookbook-rr-nsupdate-attributes" class="anchor" href="#cookbook-rr-nsupdate-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook rr nsupdate Attributes</h2>
 
 <ul>
 <li>
@@ -244,13 +262,15 @@ first nameserver entry from /etc/resolv.conf file.
 
 <p>Note: Check &amp; LWRP Examples for advanced attributes.</p>
 </li>
-</ul><h2>
-<a name="cookbook-host-recipe-usage" class="anchor" href="#cookbook-host-recipe-usage"><span class="octicon octicon-link"></span></a>Cookbook host Recipe Usage</h2>
+</ul>
+
+<h2>
+<a id="cookbook-host-recipe-usage" class="anchor" href="#cookbook-host-recipe-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook host Recipe Usage</h2>
 
 <p>Include recipe <code>ddnsupdate::host</code> to node run_list to manage Host DDNS A &amp; PTR Records.</p>
 
 <h2>
-<a name="cookbook-rr-recipe-usage" class="anchor" href="#cookbook-rr-recipe-usage"><span class="octicon octicon-link"></span></a>Cookbook rr Recipe Usage</h2>
+<a id="cookbook-rr-recipe-usage" class="anchor" href="#cookbook-rr-recipe-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook rr Recipe Usage</h2>
 
 <p>Include recipe <code>ddnsupdate::rr</code> to a node run_list to manage DDNS RR via node attribute <code>default[:ddnsupdate][:rr]</code>.</p>
 
@@ -272,7 +292,7 @@ will keep appending it to existing RR.</p>
 <p>To purge all the RR values completely enable <code>purge</code> attribute for RR as defined in the LWRP examples.</p>
 
 <h2>
-<a name="chef-role-to-manage-node-ddns-and-rr" class="anchor" href="#chef-role-to-manage-node-ddns-and-rr"><span class="octicon octicon-link"></span></a>Chef role to manage node ddns and RR</h2>
+<a id="chef-role-to-manage-node-ddns-and-rr" class="anchor" href="#chef-role-to-manage-node-ddns-and-rr" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chef role to manage node ddns and RR</h2>
 
 <p>Below Chef role is a sample to manage host and other RR.</p>
 
@@ -281,7 +301,7 @@ will keep appending it to existing RR.</p>
 <pre><code>"default_attributes": {
   "ddnsupdate": {
     "use_resolv_conf": true,
-            "ttl": 300,
+    "ttl": 300,
 
     "ddnssec": {
       "name": "internal.domain.com",
@@ -351,45 +371,45 @@ will keep appending it to existing RR.</p>
 </code></pre>
 
 <h2>
-<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ol>
 <li>Fork the repository on Github</li>
 <li>Create a named feature branch (like <code>add_component_x</code>)</li>
 <li>Write your change</li>
 <li>Write tests for your change (if applicable)</li>
-<li>Run the tests, ensuring they all pass</li>
-<li>Write description about changes</li>
+<li>Run the tests (<code>rake</code>), ensuring they all pass</li>
+<li>Write new resource/attribute description to <code>README.md</code>
+</li>
+<li>Write description about changes to PR</li>
 <li>Submit a Pull Request using Github</li>
-</ol><h2>
-<a name="copyright--license" class="anchor" href="#copyright--license"><span class="octicon octicon-link"></span></a>Copyright &amp; License</h2>
+</ol>
+
+<h2>
+<a id="copyright--license" class="anchor" href="#copyright--license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright &amp; License</h2>
 
 <p>Authors:: Virender Khatri and <a href="https://github.com/vkhatri/chef-ddnsupdate/graphs/contributors">Contributors</a></p>
 
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<pre>
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-You may obtain a copy of the License at</p>
+You may obtain a copy of the License at
 
-<pre><code>http://www.apache.org/licenses/LICENSE-2.0
-</code></pre>
+    http://www.apache.org/licenses/LICENSE-2.0
 
-<p>Unless required by applicable law or agreed to in writing, software
+Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</p>
+limitations under the License.
+</pre>
       </section>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Chef DDNSupdate maintained by <a href="https://github.com/vkhatri">vkhatri</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
+    <footer>
+      <p>Project maintained by <a href="https://github.com/vkhatri">vkhatri</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
-
   </body>
 </html>
