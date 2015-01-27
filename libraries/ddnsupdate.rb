@@ -77,7 +77,6 @@ module DDNSUpdate
             IPAddr.new(line.strip.split[1]).ipv4?
             rc[:nameservers].push line.strip.split[1]
           end
-        else
         end
       end
     end
