@@ -21,7 +21,7 @@ include_recipe 'ddnsupdate::default'
 include_recipe 'ddnsupdate::install'
 
 fail "node['ddnsupdate']['host']['reverse_zone'] must be configured" unless node['ddnsupdate']['host']['reverse_zone']
-fail "need at least node['ddnsupdate']['host']['auto_fqdn_zone'] or node['ddnsupdate']['host']['zone'] to configure host" unless node['ddnsupdate']['host']['auto_fqdn_zone'] && node['ddnsupdate']['host']['zone']
+fail "need at least node['ddnsupdate']['host']['auto_fqdn_zone'] or node['ddnsupdate']['host']['zone'] to configure host" if !node['ddnsupdate']['host']['auto_fqdn_zone'] && !node['ddnsupdate']['host']['zone']
 
 # Command for host nsupdate
 template node['ddnsupdate']['host']['nsupdate_bin'] do
@@ -34,6 +34,9 @@ end
 
 node_domain = node['ddnsupdate']['host']['auto_fqdn_zone'] && node['domain'] ? node['domain'] : node['ddnsupdate']['host']['zone']
 node_fqdn = node['ddnsupdate']['host']['auto_fqdn_zone'] && node['fqdn'] ? node['fqdn'] : (node['hostname'] + '.' + node['ddnsupdate']['host']['zone'])
+
+Chef::Log.warn('unable to determine node fqdn') unless node_fqdn
+Chef::Log.warn('unable to determine node domain / zone') unless node_domain
 
 # host nsupdate config file
 template node['ddnsupdate']['host']['config'] do
