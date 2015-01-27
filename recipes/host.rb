@@ -20,8 +20,8 @@
 include_recipe 'ddnsupdate::default'
 include_recipe 'ddnsupdate::install'
 
-fail 'node['ddnsupdate']['host']['reverse_zone'] must be configured' unless node['ddnsupdate']['host']['reverse_zone']
-fail 'need at least node['ddnsupdate']['host']['auto_fqdn_zone'] or node['ddnsupdate']['host']['zone'] to configure host' unless node['ddnsupdate']['host']['auto_fqdn_zone'] && node['ddnsupdate']['host']['zone']
+fail "node['ddnsupdate']['host']['reverse_zone'] must be configured" unless node['ddnsupdate']['host']['reverse_zone']
+fail "need at least node['ddnsupdate']['host']['auto_fqdn_zone'] or node['ddnsupdate']['host']['zone'] to configure host" unless node['ddnsupdate']['host']['auto_fqdn_zone'] && node['ddnsupdate']['host']['zone']
 
 # Command for host nsupdate
 template node['ddnsupdate']['host']['nsupdate_bin'] do
