@@ -27,7 +27,7 @@ node['ddnsupdate']['rr'].each do |r_action, r|
       ttl resource_rr_option['ttl']
       value resource_rr_option['value']
       zone resource_rr_option['zone']
-      server resource_rr_option['server']
+      server resource_rr_option['server'] || node['ddnsupdate']['server']
       purge resource_rr_option['purge']
       priority resource_rr_option['priority']
       ddnssec_key_file resource_rr_option['ddnssec_key_file']
