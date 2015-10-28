@@ -43,7 +43,7 @@ None
 
 
 ## Non-Secure DDNS Update
-Dynamic DNS by default requires a name/security key to update DNS.  There are times however when one disables this feature to allow updates without a DDNSSEC key. This feature allows one to turn off the requirement for a DDNSSEC.
+Dynamic DNS by default requires a name/security key to update DNS.  There are times however when one disables this feature to allow updates without a DDNSSEC key. This feature allows one to turn off the requirement for DDNSSEC.
 
  * `default['ddnsupdate']['no_ddnssec']  # default zone access is controlled by ddnssec` (default: `false`)
 
