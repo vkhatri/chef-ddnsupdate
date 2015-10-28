@@ -42,6 +42,12 @@ https://github.com/vkhatri/chef-ddnsupdate
 None
 
 
+## Non-Secure DDNS Update
+Dynamic DNS by default requires a name/security key to update DNS.  There are times however when one disables this feature to \
+allow updates without a DSEC key. This feature allows one to turn off the requirement for a DSEC.
+
+ * `default['ddnsupdate']['no_ddnssec'] = false # default zone access is controlled by ddnssec` (default: `false`)
+
 ## Cookbook rr LWRP
 
 **LWRP - ddnsupdate_rr*
