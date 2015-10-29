@@ -28,7 +28,7 @@ template node['ddnsupdate']['host']['nsupdate_bin'] do
   mode 0755
   owner 'root'
   group 'root'
-  source 'host_nsupdate.erb' 
+  source 'host_nsupdate.erb'
   notifies :run, 'execute[host_nsupdate]'
   only_if { !node['ddnsupdate']['no_ddnssec'] }
 end

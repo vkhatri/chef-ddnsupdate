@@ -78,8 +78,7 @@ module DDNSUpdate
           end
         end
       end
-    else
     end
-    return rc
+    rc
   end
 end
