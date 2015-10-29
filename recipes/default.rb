@@ -19,14 +19,9 @@
 
 temp_resolv_conf  = DDNSUpdate.resolv_conf
 
-#Chef::Log.debug( puts temp_resolv_conf.inspect)
-#Chef::Log.debug( puts temp_resolv_conf[:search])
-
 node.default['ddnsupdate']['resolv_conf']['nameservers'] = temp_resolv_conf[:nameservers].first
 node.default['ddnsupdate']['resolv_conf']['search'] = temp_resolv_conf[:search].first
 node.default['ddnsupdate']['resolv_conf']['domain'] = temp_resolv_conf[:domain]
-#Chef::Log.debug( puts node['ddnsupdate']['resolv_conf']['search'])
-#Chef::Log.debug( puts node['ddnsupdate']['resolv_conf']['nameservers'])
 
 node.default['ddnsupdate']['server'] = node['ddnsupdate']['resolv_conf']['nameservers'] if node['ddnsupdate']['use_resolv_conf']
 
