@@ -63,7 +63,6 @@ module DDNSUpdate
       :domain       => nil,
       :search       => []
     }
-
     if File.exist?(rc_file)
       File.open(rc_file, 'r').each_line do |line|
         next if line =~ /^#|^;/

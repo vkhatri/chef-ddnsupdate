@@ -24,9 +24,11 @@ when 'rhel'
   package 'bind-utils'
 end
 
-if node['ddnsupdate']['ddnssec']['manage']
-  fail "node['ddnsupdate']['ddnssec']['secret'] must be configured" unless node['ddnsupdate']['ddnssec']['secret']
-  fail "node['ddnsupdate']['ddnssec']['name'] must be configured" unless node['ddnsupdate']['ddnssec']['name']
+unless node['ddnsupdate']['no_ddnssec']
+  if node['ddnsupdate']['ddnssec']['manage']
+    fail "node['ddnsupdate']['ddnssec']['secret'] must be configured" unless node['ddnsupdate']['ddnssec']['secret']
+    fail "node['ddnsupdate']['ddnssec']['name'] must be configured" unless node['ddnsupdate']['ddnssec']['name']
+  end
 end
 
 # ddnssec key file
@@ -35,5 +37,5 @@ template node['ddnsupdate']['ddnssec']['file'] do
   owner 'root'
   group 'root'
   source node['ddnsupdate']['ddnssec']['template_source']
-  only_if     { node['ddnsupdate']['ddnssec']['manage'] }
+  only_if     { (node['ddnsupdate']['ddnssec']['manage'] && !node['ddnsupdate']['no_dsec']) }
 end

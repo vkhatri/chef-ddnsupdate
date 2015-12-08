@@ -30,6 +30,17 @@ template node['ddnsupdate']['host']['nsupdate_bin'] do
   group 'root'
   source 'host_nsupdate.erb'
   notifies :run, 'execute[host_nsupdate]'
+  only_if { !node['ddnsupdate']['no_ddnssec'] }
+end
+
+# Command for host nsupdate
+template node['ddnsupdate']['host']['nsupdate_bin'] do
+  mode 0755
+  owner 'root'
+  group 'root'
+  source 'host_nsupdate_nodsec.erb'
+  notifies :run, 'execute[host_nsupdate]'
+  only_if { node['ddnsupdate']['no_ddnssec'] }
 end
 
 node_domain = node['ddnsupdate']['host']['auto_fqdn_zone'] && node['domain'] ? node['domain'] : node['ddnsupdate']['host']['zone']
