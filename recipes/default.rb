@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-temp_resolv_conf  = DDNSUpdate.resolv_conf
+temp_resolv_conf = DDNSUpdate.resolv_conf
 
 node.default['ddnsupdate']['resolv_conf']['nameservers'] = temp_resolv_conf[:nameservers].first
 node.default['ddnsupdate']['resolv_conf']['search'] = temp_resolv_conf[:search].first

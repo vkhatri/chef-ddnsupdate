@@ -37,5 +37,5 @@ template node['ddnsupdate']['ddnssec']['file'] do
   owner 'root'
   group 'root'
   source node['ddnsupdate']['ddnssec']['template_source']
-  only_if     { (node['ddnsupdate']['ddnssec']['manage'] && !node['ddnsupdate']['no_dsec']) }
+  only_if { (node['ddnsupdate']['ddnssec']['manage'] && !node['ddnsupdate']['no_dsec']) }
 end
