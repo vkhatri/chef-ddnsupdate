@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
@@ -15,3 +15,5 @@ suites:
     run_list:
       - recipe[ddnsupdate::default]
     attributes:
+      ddnsupdate:
+        use_resolv_conf: true
