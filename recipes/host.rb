@@ -20,12 +20,13 @@
 include_recipe 'ddnsupdate::default'
 include_recipe 'ddnsupdate::install'
 
-fail "node['ddnsupdate']['host']['reverse_zone'] must be configured" unless node['ddnsupdate']['host']['reverse_zone']
-fail "need at least node['ddnsupdate']['host']['auto_fqdn_zone'] or node['ddnsupdate']['host']['zone'] to configure host" if !node['ddnsupdate']['host']['auto_fqdn_zone'] && !node['ddnsupdate']['host']['zone']
+raise "node['ddnsupdate']['host']['reverse_zone'] must be configured" unless node['ddnsupdate']['host']['reverse_zone']
+raise "need at least node['ddnsupdate']['host']['auto_fqdn_zone'] or node['ddnsupdate']['host']['zone'] to configure host" \
+  if !node['ddnsupdate']['host']['auto_fqdn_zone'] && !node['ddnsupdate']['host']['zone']
 
 # Command for host nsupdate
 template node['ddnsupdate']['host']['nsupdate_bin'] do
-  mode 0755
+  mode 0o755
   owner 'root'
   group 'root'
   source 'host_nsupdate.erb'
@@ -35,7 +36,7 @@ end
 
 # Command for host nsupdate
 template node['ddnsupdate']['host']['nsupdate_bin'] do
-  mode 0755
+  mode 0o755
   owner 'root'
   group 'root'
   source 'host_nsupdate_nodsec.erb'
@@ -51,7 +52,7 @@ Chef::Log.warn('unable to determine node domain / zone') unless node_domain
 
 # host nsupdate config file
 template node['ddnsupdate']['host']['config'] do
-  mode 0655
+  mode 0o655
   owner 'root'
   group 'root'
   source 'host_nsupdate_config.erb'
@@ -61,8 +62,7 @@ template node['ddnsupdate']['host']['config'] do
             :ttl      => node['ddnsupdate']['ttl'],
             :ptr      => "#{node['ipaddress'].split('.').reverse.join('.')}.in-addr.arpa",
             :ip       => node['ipaddress'],
-            :reverse_zone   => node['ddnsupdate']['host']['reverse_zone']
-           )
+            :reverse_zone => node['ddnsupdate']['host']['reverse_zone'])
   notifies :run, 'execute[host_nsupdate]'
 end
 

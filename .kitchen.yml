@@ -3,14 +3,17 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: centos-6.7
+  - name: centos-7.2
 
 suites:
   - name: default
     run_list:
       - recipe[ddnsupdate::default]
     attributes:
+      ddnsupdate:
+        use_resolv_conf: true

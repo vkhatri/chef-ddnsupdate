@@ -22,7 +22,7 @@ require 'ipaddr'
 # helper module
 module DDNSUpdate
   def self.rr2ptr(type, rr)
-    if type.upcase == 'PTR'
+    if type.casecmp('PTR').zero?
       return "#{rr.split('.').reverse.join('.')}.in-addr.arpa"
     else
       return rr

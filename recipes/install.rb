@@ -26,14 +26,14 @@ end
 
 unless node['ddnsupdate']['no_ddnssec']
   if node['ddnsupdate']['ddnssec']['manage']
-    fail "node['ddnsupdate']['ddnssec']['secret'] must be configured" unless node['ddnsupdate']['ddnssec']['secret']
-    fail "node['ddnsupdate']['ddnssec']['name'] must be configured" unless node['ddnsupdate']['ddnssec']['name']
+    raise "node['ddnsupdate']['ddnssec']['secret'] must be configured" unless node['ddnsupdate']['ddnssec']['secret']
+    raise "node['ddnsupdate']['ddnssec']['name'] must be configured" unless node['ddnsupdate']['ddnssec']['name']
   end
 end
 
 # ddnssec key file
 template node['ddnsupdate']['ddnssec']['file'] do
-  mode 0400
+  mode 0o400
   owner 'root'
   group 'root'
   source node['ddnsupdate']['ddnssec']['template_source']
