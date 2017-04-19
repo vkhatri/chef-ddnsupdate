@@ -1,17 +1,18 @@
+#! Gemfile
 source 'https://rubygems.org'
 
-gem 'rake'
 gem 'berkshelf'
 gem 'chefspec'
 gem 'foodcritic', '~> 3.0'
+gem 'rake'
 gem 'rubocop'
 
 # gem 'fauxhai'
 
 group :integration do
-  gem 'test-kitchen'
-  gem 'kitchen-vagrant'
   gem 'kitchen-docker'
+  gem 'kitchen-vagrant'
+  gem 'test-kitchen'
 end
 
 group :test do
@@ -20,8 +21,8 @@ end
 
 group :development do
   gem 'chef'
-  gem 'knife-spork', '~> 1.0.17'
   gem 'knife-spec'
+  gem 'knife-spork', '~> 1.0.17'
 end
 
 # Uncomment these lines if you want to live on the Edge:
