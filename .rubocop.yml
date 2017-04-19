@@ -77,3 +77,4 @@ AllCops:
     - Thorfile
     - Vagrantfile
     - Rakefile
+    - Berksfile
