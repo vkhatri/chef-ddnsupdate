@@ -3,6 +3,22 @@ ddnsupdate CHANGELOG
 
 This file is used to list changes made in each version of the ddnsupdate cookbook.
 
+0.1.9
+-----
+
+- Virender Khatri - possible fix for some scenario for missing node.domain
+
+- Virender Khatri - lwrp rr default server attr updated in recipe rr
+
+- Bradley Corner - modifications to enable disabling the ddnssec option
+
+- Bradley Corner - fixed Typos and formatting in README
+
+- Bradley Corner - added check for domain in the /etc/resolv.conf file.  If it does
+                   not exist then use the first entry in the search variable.
+
+- Bradley Corner - fixed rubocop
+
 0.1.8
 -----
 

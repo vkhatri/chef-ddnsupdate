@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
   require_chef_omnibus: '12.19.36'
 
 platforms:
@@ -16,3 +16,5 @@ suites:
     run_list:
       - recipe[ddnsupdate::default]
     attributes:
+      ddnsupdate:
+        use_resolv_conf: true
