@@ -10,8 +10,8 @@ issues_url 'https://github.com/vkhatri/chef-ddnsupdate/issues'
 
 depends 'cron', '>= 1.2.0'
 
-supports ubuntu
-supports centos
-supports redhat
-supports fedora
-supports amazon
+supports 'ubuntu', '>=12.04'
+supports 'centos', '>= 6.0'
+supports 'redhat', '>= 6.0'
+supports 'amazon', '>= 6.0'
+supports 'fedora'
