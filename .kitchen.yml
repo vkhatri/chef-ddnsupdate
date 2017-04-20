@@ -4,10 +4,11 @@ driver:
 
 provisioner:
   name: chef_zero
+  require_chef_omnibus: '12.19.36'
 
 platforms:
   - name: ubuntu-12.04
-  - name: centos-6.7
+  - name: centos-6.8
   - name: centos-7.2
 
 suites:

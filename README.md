@@ -19,16 +19,19 @@ what you find missing!
 
 https://github.com/vkhatri/chef-ddnsupdate
 
+# Requirements
+## Platforms
+The following platforms are supported via test kitchen.
+* Ubuntu 12.04
+* Centos 6.8
+* Centos 7.2
 
-## Supported DDNS Resource Record Types
+It may work with or without modification on other platforms.
 
-- A
-- PTR
-- CNAME
-- MX (limited support for MX RR priority)
+## Chef
+* Chef 12
 
-
-## Cookbook Recipes
+## Cookbooks
 
 - `ddnsupdate::install`   - install bind utils package and setup DDNSSEC Key file
 
@@ -36,11 +39,16 @@ https://github.com/vkhatri/chef-ddnsupdate
 
 - `ddnsupdate::rr`   			- manage DDNS RR via node attribute using LWRP
 
-
 ## Cookbook Dependencies
 
 None
 
+## Supported DDNS Resource Record Types
+
+- A
+- PTR
+- CNAME
+- MX (limited support for MX RR priority)
 
 ## Non-Secure DDNS Update
 Dynamic DNS by default requires a name/security key to update DNS.  There are times however when one disables this feature to allow updates without a DDNSSEC key. This feature allows one to turn off the requirement for DDNSSEC.
