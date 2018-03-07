@@ -61,7 +61,7 @@ Style/HashSyntax:
 Style/RescueModifier:
   Enabled: false
 
-Style/AccessorMethodNaming:
+Style/AccessorMethodName:
   Enabled: false
 
 # allow larger modules
