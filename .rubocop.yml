@@ -73,8 +73,10 @@ AllCops:
   Include:
     - '**/metadata.rb'
     - '**/*.rb'
-  Excludes:
+  Exclude:
     - Thorfile
     - Vagrantfile
     - Rakefile
     - Berksfile
+Naming/UncommunicativeMethodParamName:
+  MinNameLength: 2
